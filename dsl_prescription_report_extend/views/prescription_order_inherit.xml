@@ -1,0 +1,26 @@
+<odoo>
+    <record id="view_prescription_order_form_inherit" model="ir.ui.view">
+        <field name="name">prescription.order.form.inherit</field>
+        <field name="model">prescription.order</field>
+        <field name="inherit_id" ref="dsl_hms.view_hms_prescription_order_form"/>
+        <field name="arch" type="xml">
+            <field name="diseases_ids" position="after">
+                <field name="weight" class="oe_inline custom_weight_field"/>
+                <label string="Systolic / Diastolic BP" for="systolic_bp_extd"/>
+                  <div name="systolic_bp_extd">
+                    <div class="oe_inline" style="display: inline;">
+                        <field name="systolic_bp_extd" class="oe_inline" placeholder="Systolic BP" style="width:200px"/> / <field name="diastolic_bp_extd" class="oe_inline" placeholder="Diastolic BP"/>
+                    </div>
+                  </div>
+            </field>
+            <field name="group_id" position="after">
+                <field name="chief_complain_extd" string = "Chief Complain" widget="many2many_tags"/>
+            </field>
+
+            <field name="patient_id" position="after">
+                <field name="age_extd" string = "Age (Year)"/>
+            </field>
+
+        </field>
+    </record>
+</odoo>

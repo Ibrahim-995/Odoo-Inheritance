@@ -1,0 +1,15 @@
+<odoo>
+    <data>
+        <!-- Update the existing form view -->
+        <record id="view_hms_appointment_form_inherit" model="ir.ui.view">
+            <field name="name">hms.appointment.form.inherit</field>
+            <field name="model">hms.appointment</field>
+            <field name="inherit_id" ref="dsl_hms.view_hms_appointment_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='chief_complain']" position="replace">
+                    <field name="chief_complain_extd" widget="many2many_tags"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

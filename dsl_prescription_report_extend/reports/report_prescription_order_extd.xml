@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="report_hms_prescription_inherit" inherit_id="dsl_prescription_extension.dsl_report_dsl_lab_test_view_form_inherited">
+        <xpath expr="//div[@class='page']" position="replace">
+            <div class="page">
+
+
+                <div style="margin-left: 20rem; padding-left: 20rem; margin-top: -50rem">
+                    
+                    <h3>Doctor Info</h3>
+                   
+                </div>
+                
+                <div style="margin-top: 5rem; padding-top: 5rem;">
+                    <center>
+                        <h2>Medical Prescription</h2>
+                    </center>
+                </div>
+
+                <h3>Prescription No:
+                    <span t-field="doc.name"/>
+                </h3>
+                <center>
+                    <table style="width:900px;height:60px;margin:5 10 5 10">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <b>Patient:</b>
+                                </td>
+                                <td>
+                                    <span t-field="doc.patient_id"/>
+                                </td>
+                                <td>
+                                    <b>Prescription Date:</b>
+                                </td>
+                                <td>
+                                    <span t-field="doc.prescription_date"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <b>Age (Year):</b>
+                                </td>
+                                <td>
+                                    <span t-field="doc.age_extd"/>
+                                </td>
+                                <td>
+                                    <b>Prescribing Doctor:</b>
+                                </td>
+                                <td>
+                                    <span t-field="doc.physician_id"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <b>Weight (kg):</b>
+                                </td>
+                                <td>
+                                    <span t-field="doc.weight"/>
+                                </td>
+                                <td>
+                                    <b>Systolic/Diastolic BP:</b>
+                                </td>
+                                <td>
+                                    <span t-esc="doc.systolic_bp_extd"/>/
+                                    <span t-esc="doc.diastolic_bp_extd"/>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </center>
+                <p>
+                    <div class="row">
+                        <div class="col-6">
+                            <b>Chief Complains:</b>
+                            <t t-foreach="doc.chief_complain_extd" t-as="complain">
+                                <span t-esc="complain.name"/>/
+                            </t>
+                        </div>
+
+                        <div class="col-6 pull-right">
+                            <b>Diseases:</b>
+                            <t t-foreach="doc.diseases_ids" t-as="disease">
+                                <span t-esc="disease.name"/>/
+                            </t>
+                        </div>
+                    </div>
+                </p>
+                <p style="font-weight: bold;">Rx</p>
+                <center>
+                    <t t-set="index" t-value="1"/>
+                    <table style="width:900px;height:60px;margin:10 10 10 10;padding:5">
+                        <tbody>
+                            <tr style="border-bottom:1px solid black;margin:10 10 10 10;font-weight: bold;">
+                                <td>Sr.No</td>
+                                <td>Description</td>
+                                <td>Frequency</td>
+                                <td>Daily Dose</td>
+                                <td>Days</td>
+                                <td>Quantity</td>
+                                <td>Subsititution?</td>
+                                <td>Comment</td>
+                            </tr>
+                            <t t-foreach="doc.prescription_line_ids" t-as="i">
+                                <tr style="border-bottom:0.2px solid grey;margin:10 10 10 10">
+                                    <td>
+                                        <span t-esc="index"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="i.product_id.name"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="i.common_dosage_id.abbreviation"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="i.dose"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="i.days"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="i.quantity"/>
+                                    </td>
+                                    <td>
+                                        <t t-if="i.allow_substitution">
+                                            <span>YES</span>
+                                        </t>
+                                        <t t-else="">
+                                            <span>NO</span>
+                                        </t>
+                                    </td>
+                                    <td>
+                                        <span t-esc="i.short_comment"/>
+                                    </td>
+                                </tr>
+                                <t t-set="index" t-value="index + 1"/>
+                            </t>
+                            <t t-foreach="doc.external_medicine_ids" t-as="i" t-value="1">
+                                <tr style="border-bottom:0.2px solid grey;margin:10 10 10 10">
+                                    <td>
+                                        <span t-esc="index"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="i.external_medicine_id.name"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="i.common_dosage.abbreviation"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="i.dose"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="i.days"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="i.quantity"/>
+                                    </td>
+                                    <td>
+                                        <t t-if="i.allow_substitution">
+                                            <span>YES</span>
+                                        </t>
+                                        <t t-else="">
+                                            <span>NO</span>
+                                        </t>
+                                    </td>
+                                    <td>
+                                        <span t-esc="i.short_comment"/>
+                                    </td>
+                                </tr>
+                                <t t-set="index" t-value="index + 1"/>
+                            </t>
+                        </tbody>
+                    </table>
+                </center>
+                <br/>
+                <p>
+                    <b>Lab Test:</b>
+                    <br/>
+                </p>
+                <center>
+                    <t t-set="index" t-value="1"/>
+                    <table style="width:900px;height:60px;margin:10 10 10 10;padding:5">
+                        <tbody>
+                            <tr style="border-bottom:1px solid black;margin:10 10 10 10;font-weight: bold;">
+                                <td>Sr.No</td>
+                                <td>Description</td>
+                                <td>Note</td>
+                            </tr>
+                            <t t-foreach="doc.test_ids" t-as="i">
+                                <tr style="border-bottom:0.2px solid grey;margin:10 10 10 10">
+                                    <td>
+                                        <span t-esc="index"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="i.labtest_id.name"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="i.note"/>
+                                    </td>
+                                </tr>
+                                <t t-set="index" t-value="index + 1"/>
+                            </t>
+                        </tbody>
+                    </table>
+                </center>
+                <br/>
+                <div class="row">
+                    <div class="col-8">
+                        <p>
+                            <b>Doctor's Advice:</b>
+                            <ul>
+                                <t t-foreach="doc.suggestion_ids" t-as="i">
+                                    <li>
+                                        <span style="font-size: 11px;" t-esc="i.name"/>
+                                    </li>
+                                </t>
+                            </ul>
+                        </p>
+                        <p>
+                            <b>Follow Up Date:</b>
+                            <span t-esc="doc.follow_up_date"/>
+                            <br/>
+                        </p>
+                        <p>
+                            <b>Comment(If Any):</b>
+                            <br/>
+                            <span t-esc="doc.notes"/>
+                        </p>
+                        <br/>
+                        <b>Doctor’s Stamp/Signature</b>
+                    </div>
+                    <div class="col-4 pull-right" t-if="doc.sudo().company_id.dsl_prescription_qrcode">
+                        <span class="float-right" style="font-size: 10px;">
+                            <b>Scan to Authenticate.</b>
+                        </span>
+                        <br/>
+                        <img t-if="doc.qr_image" t-att-src="image_data_uri(doc.qr_image)" alt="Logo" style="width: 100px;" class="float-right"/>
+                    </div>
+                </div>
+            </div>
+        </xpath>
+    </template>
+</odoo>
+
+
+

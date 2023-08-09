@@ -1,0 +1,45 @@
+<odoo>
+    <data>
+        <!-- Tree View -->
+        <record id="view_chief_complain_tree" model="ir.ui.view">
+            <field name="name">chief.complain.tree</field>
+            <field name="model">chief.complain</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="note"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_chief_complain_form" model="ir.ui.view">
+            <field name="name">chief.complain.form</field>
+            <field name="model">chief.complain</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="note"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Action -->
+        <record id="action_chief_complain_tree" model="ir.actions.act_window">
+            <field name="name">Chief Complains</field>
+            <field name="res_model">chief.complain</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to add new Chief Complain.
+                </p>
+            </field>
+        </record>
+
+        <!-- Menu Item -->
+        <menuitem id="menu_chief_complain" name="Chief Complains" parent="dsl_hms.menu_pres_cofig" sequence="1000" action="action_chief_complain_tree"/>
+    </data>
+</odoo>
